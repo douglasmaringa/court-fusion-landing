@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -24,10 +25,12 @@ export default function Home() {
 
           {/* DESKTOP NAV LINKS */}
           <div className={styles.navLinks}>
-            <a href="#features">Features</a>
-            <a href="#screenshots">Screenshots</a>
-            <a href="/privacy">Privacy</a>
-            <a href="#download" className={styles.downloadBtn}>Download</a>
+            <Link href="#features">Features</Link>
+            <Link href="#screenshots">Screenshots</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="#download" className={styles.downloadBtn}>
+              Download
+            </Link>
           </div>
 
           {/* MOBILE BURGER MENU */}
@@ -44,20 +47,20 @@ export default function Home() {
       </nav>
 
       {/* ===================== */}
-      {/* MOBILE MENU (Outside nav — FIXED) */}
+      {/* MOBILE MENU           */}
       {/* ===================== */}
       {openMenu && (
         <div className={styles.mobileMenu}>
-          <a href="#features" onClick={() => setOpenMenu(false)}>Features</a>
-          <a href="#screenshots" onClick={() => setOpenMenu(false)}>Screenshots</a>
-          <a href="/privacy" onClick={() => setOpenMenu(false)}>Privacy</a>
-          <a
+          <Link href="#features" onClick={() => setOpenMenu(false)}>Features</Link>
+          <Link href="#screenshots" onClick={() => setOpenMenu(false)}>Screenshots</Link>
+          <Link href="/privacy" onClick={() => setOpenMenu(false)}>Privacy</Link>
+          <Link
             href="#download"
             className={styles.downloadBtnMobile}
             onClick={() => setOpenMenu(false)}
           >
             Download
-          </a>
+          </Link>
         </div>
       )}
 
@@ -75,11 +78,11 @@ export default function Home() {
 
           <p className={styles.heroSubtitle}>
             The ultimate app for coaches, players, and parents. Manage teams, track stats,
-            share media, and stay connected—all in one beautifully designed app.
+            share media, and stay connected — all in one beautifully designed app.
           </p>
 
           <div className={styles.heroCta}>
-            <a href="#download" className={styles.appStoreBadge}>
+            <Link href="#download" className={styles.appStoreBadge}>
               <Image
                 src="/images/app-store-badge.svg"
                 alt="Download on App Store"
@@ -87,7 +90,7 @@ export default function Home() {
                 height={50}
                 priority
               />
-            </a>
+            </Link>
           </div>
 
           {/* HERO STATS */}
@@ -182,45 +185,23 @@ export default function Home() {
         </div>
 
         <div className={styles.screenshotsCarousel}>
-          <div className={styles.screenshotCard}>
-            <Image
-              src="/screenshots/CourtFusion_Screenshot_2_TeamFeed.png"
-              width={1290} height={2796}
-              alt="Team Feed"
-              className={styles.screenshot}
-            />
-            <p className={styles.screenshotLabel}>Team Feed</p>
-          </div>
-
-          <div className={styles.screenshotCard}>
-            <Image
-              src="/screenshots/CourtFusion_Screenshot_4_LiveScoring.png"
-              width={1290} height={2796}
-              alt="Live Scoring"
-              className={styles.screenshot}
-            />
-            <p className={styles.screenshotLabel}>Live Scoring</p>
-          </div>
-
-          <div className={styles.screenshotCard}>
-            <Image
-              src="/screenshots/CourtFusion_Screenshot_5_MediaGallery.png"
-              width={1290} height={2796}
-              alt="Media Gallery"
-              className={styles.screenshot}
-            />
-            <p className={styles.screenshotLabel}>Media Gallery</p>
-          </div>
-
-          <div className={styles.screenshotCard}>
-            <Image
-              src="/screenshots/CourtFusion_Screenshot_7_GameSummary.png"
-              width={1290} height={2796}
-              alt="Game Summary"
-              className={styles.screenshot}
-            />
-            <p className={styles.screenshotLabel}>Game Summary</p>
-          </div>
+          {[
+            { src: "/screenshots/CourtFusion_Screenshot_2_TeamFeed.png", label: "Team Feed" },
+            { src: "/screenshots/CourtFusion_Screenshot_4_LiveScoring.png", label: "Live Scoring" },
+            { src: "/screenshots/CourtFusion_Screenshot_5_MediaGallery.png", label: "Media Gallery" },
+            { src: "/screenshots/CourtFusion_Screenshot_7_GameSummary.png", label: "Game Summary" }
+          ].map((shot, i) => (
+            <div key={i} className={styles.screenshotCard}>
+              <Image
+                src={shot.src}
+                width={1290}
+                height={2796}
+                alt={shot.label}
+                className={styles.screenshot}
+              />
+              <p className={styles.screenshotLabel}>{shot.label}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -281,43 +262,135 @@ export default function Home() {
       </section>
 
       {/* ===================== */}
-      {/* FOOTER                */}
+      {/* PREMIUM FOOTER        */}
       {/* ===================== */}
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-
-          <div className={styles.footerBrand}>
-            <span className={styles.footerLogo}>🏀 CourtFusion</span>
-            <p>Youth basketball management made simple</p>
+      <footer
+        style={{
+          background: "#1D1D1F",
+          color: "white",
+          padding: "5rem 2rem 2rem",
+          marginTop: "6rem"
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "4rem"
+          }}
+        >
+          {/* BRAND */}
+          <div style={{ flex: 1, minWidth: "280px" }}>
+            <span
+              style={{
+                fontSize: "1.7rem",
+                fontWeight: 700,
+                display: "block",
+                marginBottom: "1rem"
+              }}
+            >
+              🏀 CourtFusion
+            </span>
+            <p
+              style={{
+                color: "#bfbfbf",
+                lineHeight: 1.7,
+                fontSize: "1.05rem",
+                maxWidth: "320px"
+              }}
+            >
+              Youth basketball team management made simple.  
+              Keep coaches, parents, and players connected.
+            </p>
           </div>
 
-          <div className={styles.footerLinks}>
-            <div className={styles.footerColumn}>
-              <h4>Product</h4>
-              <a href="#features">Features</a>
-              <a href="#screenshots">Screenshots</a>
-              <a href="#download">Download</a>
+          {/* COLUMNS */}
+          <div
+            style={{
+              display: "flex",
+              gap: "5rem",
+              flexWrap: "wrap",
+              minWidth: "280px"
+            }}
+          >
+            {/* PRODUCT */}
+            <div>
+              <h4
+                style={{
+                  fontWeight: 700,
+                  marginBottom: "1rem",
+                  fontSize: "1.15rem"
+                }}
+              >
+                Product
+              </h4>
+              <Link href="#features" style={{ color: "#bfbfbf", display: "block", marginBottom: ".7rem" }}>
+                Features
+              </Link>
+              <Link href="#screenshots" style={{ color: "#bfbfbf", display: "block", marginBottom: ".7rem" }}>
+                Screenshots
+              </Link>
+              <Link href="#download" style={{ color: "#bfbfbf", display: "block" }}>Download</Link>
             </div>
 
-            <div className={styles.footerColumn}>
-              <h4>Support</h4>
-              <a href="mailto:support@courtfusion.app">Contact Support</a>
-              <a href="mailto:hello@courtfusion.app">General Inquiry</a>
+            {/* SUPPORT */}
+            <div>
+              <h4
+                style={{
+                  fontWeight: 700,
+                  marginBottom: "1rem",
+                  fontSize: "1.15rem"
+                }}
+              >
+                Support
+              </h4>
+              <a href="mailto:support@courtfusion.app" style={{ color: "#bfbfbf", display: "block", marginBottom: ".7rem" }}>
+                Contact Support
+              </a>
+              <a href="mailto:hello@courtfusion.app" style={{ color: "#bfbfbf", display: "block" }}>
+                General Inquiry
+              </a>
             </div>
 
-            <div className={styles.footerColumn}>
-              <h4>Legal</h4>
-              <a href="/privacy">Privacy Policy</a>
-              <a href="mailto:privacy@courtfusion.app">Privacy Concerns</a>
+            {/* LEGAL */}
+            <div>
+              <h4
+                style={{
+                  fontWeight: 700,
+                  marginBottom: "1rem",
+                  fontSize: "1.15rem"
+                }}
+              >
+                Legal
+              </h4>
+              <Link href="/privacy" style={{ color: "#bfbfbf", display: "block", marginBottom: ".7rem" }}>
+                Privacy Policy
+              </Link>
+              <a href="mailto:privacy@courtfusion.app" style={{ color: "#bfbfbf", display: "block" }}>
+                Privacy Concerns
+              </a>
             </div>
           </div>
-
         </div>
 
-        <div className={styles.footerBottom}>
-          <p>&copy; 2024 CourtFusion. All rights reserved.</p>
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "3rem auto 0",
+            paddingTop: "2rem",
+            borderTop: "1px solid #333",
+            textAlign: "center",
+            color: "#777",
+            fontSize: ".9rem"
+          }}
+        >
+          © 2024 CourtFusion. All rights reserved.
         </div>
       </footer>
+
     </main>
   );
 }
